@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    
+    <title>CRM dashboard</title>
+</head>
+<body>
+    <?php
+    include 'for-include/db-connection.php';
+
+    
+    ?> 
+    <div class="container-fluid" id="container-things">
+        <div class="row">
+            <div class="col-md-2" id="left-side">
+                <div class="logo-area">
+                    <h1>Book-CRM</h1>
+                </div>
+                <ul class="nav flex-column nav-pills" id="d-margins">
+                <li class="nav-item "><a class="nav-link active" active href="dashboard.html"><i class="fas fa-tachometer-alt"></i>DashBoard</a></li>
+
+                <li class="nav-item"><a class="nav-link" href="authors.html"><i class="fas fa-user-tie"></i>Authors</a></li>
+                <li class="nav-item"><a class="nav-link" href="books.html"><i class="fas fa-align-justify"></i>Books</a></li>
+                <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fas fa-folder-open"></i>Categories</a></li>
+                <li class="nav-item"><a class="nav-link" href="employees.html"><i class="fas fa-users"></i>Employees</a></li>
+                <li class="nav-item"><a class="nav-link" href="todo.html"><i class="fas fa-marker"></i>To do</a></li>
+            </ul>
+
+            </div><!--End of left side-->
+
+            <div class="col-md-10 rightside">
+                <div class="row">
+                    <div class="col-md-12 rightheader">
+                            <h5>Dashboard</h5>
+                    </div>
+                    
+                </div>
+                <div class="row" id="top-ish">
+                    <div class="" id="top-box">
+                        <div class="top-inner">
+
+                        </div>
+                    </div>
+                    <div class="" id="top-box"></div>
+                    <div class="" id="top-box"></div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-12">
+                            <div class="table-header card-header" id="for-card-header">
+                                    <h4>Books</h4>
+                                </div>
+                            <table class="table table-bordered ">
+                                    <thead class="thead">
+                                      <tr>
+                                        <th scope="col" style="text-align:center;">BookID</th>
+                                        <th scope="col" style="text-align:center;">ISBN10</th>
+                                        <th scope="col" style="text-align:center;">ISBN13</th>
+                                        <th scope="col" style="text-align:center;">Title</th>
+                                        <th scope="col" style="text-align:center;">Trim Size</th>
+                                        <th scope="col" style="text-align:center;">Page count</th>
+                                        <th scope="col" style="text-align:center;">Last stock date</th>
+                                        <th scope="col" style="text-align:center;">Description</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                           <?php while ($DataRows = mysqli_fetch_array($execute)) {
+                                                $Id = $DataRows['BookID'];
+                                                $ISBN = $DataRows['ISBN10'];
+                                                $ISBN13 = $DataRows['ISBN13'];
+                                                $Title = $DataRows['Title'];
+                                                $trimsize = $DataRows['TrimSIze'];
+                                                $PageCountEditorialEst = $DataRows['PageCountEditorialEst'];
+                                                $CoverImage = $DataRows['CoverImage'];
+                                                $Description = $DataRows['Description'];
+                                                $stockdate = $DataRows['LatestInStockDate'];
+                                                ?>
+                                      <tr>
+                                        <th scope="row">To-do--<?php echo "$Id"?></th>
+                                        <td><?php echo "$ISBN"?></td>
+                                        <td><?php echo "$ISBN13"?></td>
+                                        <td><?php echo "$Title"?></td>
+                                        <td><?php echo "$trimsize"?></td>
+                                        <td><?php echo "$PageCountEditorialEst"?></td>
+                                        <td><?php echo "$stockdate"?></td>
+                                        <td><?php echo "$Description"?></td>
+                                      </tr>
+                                      <?php }?>
+                                    </tbody>
+                                  </table>
+                                  <div class="row"><!--table for employees-->
+                                      <div class="col-md-12">
+                                          <div class="table-header card-header" id="for-card-header">
+                                              <h4>Employees</h4>
+                                          </div>
+                                        <table class="table table-bordered ">
+                                            <thead class="thead">
+                                              <tr>
+                                                <th scope="col" style="text-align:center;">Employee ID</th>
+                                                <th scope="col" style="text-align:center;">First Name</th>
+                                                <th scope="col" style="text-align:center;">Last Name</th>
+                                                <th scope="col" style="text-align:center;">Address</th>
+                                                <th scope="col" style="text-align:center;">City</th>
+                                                <th scope="col" style="text-align:center;">Region</th>
+                                                <th scope="col" style="text-align:center;">Country</th>
+                                                <th scope="col" style="text-align:center;">Postal</th>
+                                                <th scope="col" style="text-align:center;">Email</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <?php                                               
+                                                    $selectedb = mysqli_select_db($conn, "bookcrm");
+                                                   
+                                                
+                                                    $viewQuery = "SELECT * FROM employees";
+                                                    $execute = $conn->query($viewQuery);
+                                                    ?>   
+                                                                                             
+                                                   <?php while ($DataRows = mysqli_fetch_array($execute)) {
+                                                    $Id = $DataRows['EmployeeID'];
+                                                    $FirstName = $DataRows['FirstName'];
+                                                    $LastName = $DataRows['LastName'];
+                                                    $Address = $DataRows['Address'];
+                                                    $City = $DataRows['City'];
+                                                    $Region = $DataRows['Region'];
+                                                    $country = $DataRows['Country'];
+                                                    $postal = $DataRows['Postal'];
+                                                    $email = $DataRows['Email'];
+                                                        ?>
+                                                        <tr>
+                                                            <th scope="row"><?php echo "$Id"?></th>
+                                                            <td><?php echo "$FirstName"?></td>
+                                                            <td><?php echo "$LastName"?></td>
+                                                            <td><?php echo "$Address"?></td>
+                                                            <td><?php echo "$City"?></td>
+                                                            <td><?php echo "$Region"?></td>
+                                                            <td><?php echo "$country"?></td>
+                                                            <td><?php echo "$postal"?></td>
+                                                            <td><?php echo "$email"?></td>
+                                                          </tr>
+                                              <?php }?>
+                                            </tbody>
+                                          </table><!--employees table end-->
+                                          <div class="row"><!--authors-->
+                                              <div class="col-md-12">
+                                                    <div class="table-header card-header" id="for-card-header">
+                                                            <h4>Authors</h4>
+                                                        </div>
+                                                    <?php
+                                                
+                                                    $viewQuery = "SELECT * from authors";
+                                                    $execute = $conn->query($viewQuery);
+                                                
+                                                    ?>
+                                                    <table class="table table-bordered ">
+                                                            <thead class="thead">
+                                                              <tr>
+                                                                <th scope="col" >Author ID</th>
+                                                                <th scope="col" >First Name</th>
+                                                                <th scope="col" >Last Name</th>
+                                                                <th scope="col" >Institution</th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                   <?php while ($DataRows = mysqli_fetch_array($execute)) {
+                                                                    $Id = $DataRows['authorid'];
+                                                                    $firstname = $DataRows['firstname'];
+                                                                    $lastname = $DataRows['lastname'];
+                                                                    $Institution = $DataRows['institution'];
+                                                                            if($Institution == null){
+                                                                                $Institution=" Not Given";
+                                                                            }
+                                                                    
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row"><?php echo "$Id"?></th>
+                                                                            <td><?php echo "$firstname"?></td>
+                                                                            <td><?php echo "$lastname"?></td>
+                                                                            <td><?php echo "$Institution"?></td>
+                                                                          </tr>
+                                                              <?php }?>
+                                                            </tbody>
+                                                          </table>
+                                              </div>
+                                          </div>
+                                          <div class="row"><!--To do table-->
+                                              <div class="col-md-12">
+                                                    <div class="table-header card-header" id="for-card-header">
+                                                            <h4>To do</h4>
+                                                        </div>
+                                                    <table class="table table-bordered ">
+                                                            <thead class="thead">
+                                                              <tr>
+                                                                <th scope="col">Todo ID</th>
+                                                                <th scope="col">ToDo</th>
+                                                                <th scope="col">Status</th>
+                                                                <th scope="col">Priority</th>
+                                                                <th scope="col">Description</th>
+                                                                <th scope="col">Employee Involved</th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                    <?php
+                                                                
+                                                                    $viewQuery = "SELECT *, FirstName FROM employeetodo left join employees on employeetodo.EmployeeID= employees.EmployeeID";
+                                                                    $execute = $conn->query($viewQuery);
+                                                                
+                                                                    ?>
+                                                                    <!--To do select statement above-->
+
+                                                                   <?php while ($DataRows = mysqli_fetch_array($execute)) {
+                                                                    $Id = $DataRows['TodoID'];
+                                                                    $Status = $DataRows['Status'];
+                                                                    $EmployeeToDo = $DataRows['EmployeeToDo'];
+                                                                    $Description = $DataRows['Description'];
+                                                                    $EmployeeID = $DataRows['EmployeeID'];
+                                                                    $Description = $DataRows['Description'];
+                                                                    $Priority = $DataRows['Priority'];
+                                                                    $firstname = $DataRows['FirstName'];
+                        
+                                                                    
+                                                                        ?>
+                                                                        <tr>
+                                                                            <th scope="row"><?php echo "$Id"?></th>
+                                                                            <td><?php echo "$EmployeeToDo"?></td>
+                                                                            <td><?php echo "$Status"?></td>
+                                                                            <td><?php echo "$Priority"?></td>
+                                                                            <td><?php echo "$Description"?></td>
+                                                                            <td><?php echo "$firstname"?></td>
+                                                                          </tr>
+                                                              <?php }?>
+                                                            </tbody>
+                                                          </table>
+                                              </div>
+                                          </div>
+                                          <div class="row"> 
+                                              <div class="col-md-12">
+
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                            
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+</body>
+</html>

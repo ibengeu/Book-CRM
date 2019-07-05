@@ -1,0 +1,136 @@
+<?php
+
+$nameerror=" "; 
+if (isset($_POST['submit'])){
+    if (empty($_POST['isbn10'])){
+        $nameerror="isbn is required";
+    }
+    else {
+        $name=Test_User_Input($_POST['isbn10']);
+    }
+
+    function Test_User_Input($Data){
+        return $Data;
+    }
+}
+
+?> 
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <title>Book-CRM</title>
+</head>
+
+<body>
+   <?php
+   include 'for-include/db-connection.php';
+   ?> 
+    <div class="container-fluid" id="container-style">
+        <div class="row">
+                <div class="col-md-12">
+                        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <a class="navbar-brand logo-area" href="#"> 
+                                        <h1>BOOK-sTORE</h1>
+                                   </a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                                  <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                  <ul class="navbar-nav">
+                                    <li class="nav-item active">
+                                      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" href="#">Features</a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a class="nav-link" href="#">Pricing</a>
+                                    </li>
+                                    <li class="nav-item dropdown">
+                                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Dropdown link
+                                      </a>
+                                      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                      </div>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </nav>
+                </div>
+        </div>
+        <div class="row">    
+            <div class="col-md-2" id="left-side">
+                
+
+                <div class="header1">
+                    <h1>Books we love</h1>
+                    <ul>
+                        <li class="list"><a href="">Handpicked</a></li>
+                        <li class="list"><a href="">Latest Releases</a></li>
+                        <li class="list"><a href="">Popular</a></li>
+                    </ul>
+                </div>
+                <div class="header1">
+                    <h1>Best authors</h1>
+                    <ul>
+                        <li class="list"><a href="">Amadioha</a></li>
+                        <li class="list"><a href="">Uforo Ibenge</a></li>
+                        <li class="list"><a href="">Adebasi Idiot</a></li>
+                    </ul>
+                </div>
+                <div class="header1">
+                    <h1>Categories</h1>
+                    <ul>
+                        <li class="list"><a href="">Thriller</a></li>
+                        <li class="list"><a href="">Sci-Fi</a></li>
+                        <li class="list"><a href="">Poetry</a></li>
+                        <li class="list"><a href="">Philosophy</a></li>
+                    </ul>
+                </div>
+
+
+            </div> <!--end of left side-->
+                <div class="col-md-10 right-side">
+                    <div class="row">
+                        <?php 
+                        while ($DataRows = mysqli_fetch_array($execute)) {
+                            $Id = $DataRows['BookID'];
+                            $ISBN = $DataRows['ISBN10'];
+                            $Title = $DataRows['Title'];
+                            $PageCountEditorialEst = $DataRows['PageCountEditorialEst'];
+                            $CoverImage = $DataRows['CoverImage'];
+                            $Description = $DataRows['Description'];
+                            ?>
+
+                        <div class="col-md-3 books-margin">
+                            <img src="Img/Minimalist Teen Fiction Wattpad Book Cover (2).png" alt="" class="book-img offset-md-3">
+
+                            <div class="book-title"><?php echo "$Title"; ?></div>
+                        </div>
+                        <?php 
+                    } ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+
+</html> 

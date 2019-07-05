@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet">
+    <title>CRM dashboard</title>
+</head>
+<body onload="loadImage()">
+        <?php
+        $servername = "localhost";
+        $username = "root";
+        $password = '1234';
+        $db = "bookcrm";
+    
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $db);
+    
+    
+        $selectedb = mysqli_select_db($conn, "bookcrm");
+       
+    
+        $viewQuery = "SELECT * FROM employees";
+        $execute = $conn->query($viewQuery);
+
+        if(isset($_POST['submit'])){
+
+        $first_name = $_POST['firstname'];
+        $last_name = $_POST['lastname'];
+        $Address = $_POST['address'];
+        $City = $_POST['city'];
+        $Region = $_POST['region'];
+        $country = $_POST['country'];
+        $postal = $_POST['postal'];
+        $email = $_POST['email'];
+
+        
+        $insertQuery = "INSERT INTO employees (FirstName, LastName, Address, City, Region, Country, Postal, Email)
+         VALUES ('$first_name','$last_name', '$Address', '$City','$Region','$country', '$postal', '$email')";
+      
+   
+        if ($conn->query($insertQuery) === TRUE) {
+           echo "New record created successfully";
+       } else {
+           echo "Error: " . $insertQuery . "<br>" . $conn->error;
+       }
+    }
+        ?>
+    <div class="container-fluid" id="container-things">
+        <div class="row">
+            <div class="col-md-2" id="left-side">
+                <div class="logo-area">
+                    <h1>Book-CRM</h1>
+                </div>
+                <ul class="nav flex-column nav-pills" id="d-margins">
+                    <li class="nav-item "><a class="nav-link "  href="dashboard.html"><i class="fas fa-tachometer-alt"></i>DashBoard</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="authors.html"><i class="fas fa-user-tie"></i>Authors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="books.html"><i class="fas fa-align-justify"></i>Books</a></li>
+                    <li class="nav-item"><a class="nav-link" href="categories.html"><i class="fas fa-folder-open"></i>Categories</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="employees.html"><i class="fas fa-users"></i>Employees</a></li>
+                    <li class="nav-item"><a class="nav-link" href="todo.html"><i class="fas fa-marker"></i>To do</a></li>
+            </ul>
+            </div>
+            <div class="col-md-10 rightside">
+                <div class="row">
+                        <div class="col-md-12 rightheader">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <h5><i class="fas fa-users"></i>Employees</h5>
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div id="todo-btn" class="d-flex justify-content-end">
+                                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample"
+                                                role="button" aria-expanded="false" aria-controls="collapseExample">
+                                                Add Employee
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                            </div>
+                    
+                </div>
+                <div class="row" id="top-ish">
+                    <div class="" id="top-box">
+                        
+                    </div>
+                    <div class="" id="top-box"></div>
+                    <div class="" id="top-box"></div>
+                </div>
+                <div class="row">
+
+                        <div class="col-md-12">
+                                <div class="collapse" id="collapseExample">
+                                        <div class="card card-body">
+                                            <form method="POST" method="POST" action="employees.html">
+                                                    <div class="row">
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="First Name">First Name</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="What's the First Name?" name="firstname">
+                                                            </div>
+                                                </div>
+            
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="Last Name">Last Name</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="What's the Last Name?" name="lastname">
+                                                            </div>
+                                                </div>
+            
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="address">Address</label>
+                                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="1"
+                                                                name="address"></textarea>  
+                                                            </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="City">City</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="City of Address?" name="city">
+                                                            </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="Region">Region</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="Region of address?" name="region">
+                                                            </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="country">Country</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="What country is the employee from?" name="country">
+                                                            </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="Postal">Postal</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="Postal Address" name="postal">
+                                                            </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                        <div class="form-group">
+                                                                <label for="email">Email</label>
+                                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                                    placeholder="What's the email address?" name="email">
+                                                            </div>
+                                                </div>
+                                                </div>
+                                                <input type="submit" name="submit" value="Update Table" class="btn btn-secondary">
+                                            </form>
+                                        </div>
+                                    </div>
+                        </div>
+                    
+                    <div class="col-md-12">
+                            <table class="table table-bordered table-responive table-sm table-striped">
+                                    <thead class="thead">
+                                      <tr>
+                                        <th scope="col">Employee ID</th>
+                                        <th scope="col">First Name</th>
+                                        <th scope="col">Last Name</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">Region</th>
+                                        <th scope="col">Country</th>
+                                        <th scope="col">Postal</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col" colspan="2">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                           <?php while ($DataRows = mysqli_fetch_array($execute)) {
+                                            $Id = $DataRows['EmployeeID'];
+                                            $FirstName = $DataRows['FirstName'];
+                                            $LastName = $DataRows['LastName'];
+                                            $Address = $DataRows['Address'];
+                                            $City = $DataRows['City'];
+                                            $Region = $DataRows['Region'];
+                                            $country = $DataRows['Country'];
+                                            $postal = $DataRows['Postal'];
+                                            $email = $DataRows['Email'];
+                                                ?>
+                                                <tr id="<?php echo $Id?>">
+                                                    <th scope="row" ><?php echo "$Id"?></th>
+                                                    <td class="documentInput"><input type="text" id="firstname_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $FirstName?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="lastname_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $LastName?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="address_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $Address?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="city_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $City?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="region_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $Region?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="country_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $country?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="postal_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $postal?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td class="documentInput"><input type="text" id="firstname_val<?php echo $DataRows['EmployeeID'];?>" class="form-control"
+                                                        value="<?php echo $email?>" style="border:unset;background-color: unset;border-radius: unset"></td>
+                                                    <td>
+                                                            <!--<a href="edituser.php?id=<?php echo $Id?>">-->
+                                                            <button type="button" class="btn btn-success editBtn"  value="edit" id="edit_button<?php echo $DataRows['EmployeeID'];?>"
+                                                                 >Edit</button>
+                                                            <!--</a>-->
+                    
+                                                        </td>
+                                                        <td>
+                                                            <button type="button"
+                                                                    class="btn btn-danger delBtn" id="del_button<?php echo $DataRows['EmployeeID'];?>">Delete</button></a>
+                    
+                                                        </td>
+                                                  </tr>
+                                      <?php }?>
+                                    </tbody>
+                                  </table>
+                                 
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.3.1.js"></script>
+    
+
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+<script>
+
+        //     function toggleFormElements() {
+    
+    
+    
+        //     }
+    
+            function loadImage() {
+                var inputs = document.getElementsByClassName("documentInput");
+    
+                for (var i = 0; i < inputs.length; i++) {
+                    inputs[i].firstElementChild.disabled = true;
+                }
+            }
+            
+    
+          $(".editBtn").click(function() {
+            let btnText = $(this).text() === 'Edit'? $(this).text('Save') : $(this).text('Edit');
+            let btnTextVal = $(this).val() === 'edit'? $(this).val('Save') : $(this).val('edit');
+            let btnTextChange = btnTextVal[0].value;
+    
+    
+    
+            let $row = $(this).closest("tr");    // Find the row
+            let see = $row.find("td input[type=text]").prop('disabled', function(i, v) { return !v; });;
+    
+            
+            let id = $(this).closest("tr").attr("id");
+            let firstname=$(this).closest("tr").find("td input")[0].value;
+            let lastname=$(this).closest("tr").find("td input")[1].value;
+            let Address=$(this).closest("tr").find("td input")[2].value;
+            let City=$(this).closest("tr").find("td input")[3].value;
+            let Region=$(this).closest("tr").find("td input")[4].value;
+            let country=$(this).closest("tr").find("td input")[5].value;
+            let postal=$(this).closest("tr").find("td input")[6].value;
+            let email=$(this).closest("tr").find("td input")[7].value;
+    
+            console.log({lastname:lastname,
+                        firstname:firstname,
+                        Address:Address,
+                        city:City,
+                        Region:Region,
+                        country:country,
+                        postal:postal,
+                        email:email,
+                        id:id
+                    });
+    
+            if(btnTextChange == "edit"){
+                
+                $.ajax({
+                        url:'edit-categories.php',
+                        method:'POST',
+                        data:{
+    
+                            lastname:lastname,
+                        firstname:firstname,
+                        Address:Address,
+                        city:City,
+                        Region:Region,
+                        country:country,
+                        postal:postal,
+                        email:email,
+                        id:id
+    
+                        },
+                       success:function(data){
+                           console.log(data);
+                       }
+                    });        }
+            
+    
+        });
+    
+        $(".delBtn").click(function(){
+        let id = $(this).closest("tr").attr("id");
+        
+        console.log(id);
+
+        
+
+        $.ajax({
+            url:'delete-emp.php',
+                    method:'POST',
+                    data:{
+
+                        id:id
+
+                    },
+                   success:function(data){
+                       console.log(data);
+                   }
+        });
+    });
+    
+        </script>
+</body>
+</html>

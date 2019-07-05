@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: rgb(172, 172, 173,0.2);
+    font-family:"nunito sans";
+    font-size: 0.9em;
+}
+
+#left-side {
+    
+    background:#456990;
+    height: 100vh;
+    box-shadow: 5px 4px 20px rgba(37, 37, 37, 0.4);
+}
+
+#top-ish {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#top-box {
+    height: 100px;
+    width: 200px;
+    border-radius: 5px;
+    background-color: rgba(254, 254, 255);
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+
+.nav-item {
+    margin-bottom: 20px;
+}
+.logo-area {
+    margin-bottom: 50px;
+    margin-top: 40px;
+    border: 1px dashed rgb(255, 255, 255);
+    padding: 10px;
+    font-size: 1.5em;
+    color: white;
+}
+
+.fas {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#rightside {
+    height: 100vh;
+    overflow-x: scroll;
+}
+.table {
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(171, 171, 173, 0.2)
+}
+.thead {
+    background-color: rgba(250, 2, 138, 0.781);
+    color:white;
+}
+
+.rightheader {
+    padding: 20px;
+    background-color: rgb(255, 255, 255,0.5);
+}
+
+.rightside {
+    overflow-y: scroll;
+    height: 100vh;
+}
+
+#for-card-header {
+    background-color:white;
+}
+
+#todo-btn {
+    margin-bottom: 20px;
+}
+
+a{
+    color: aliceblue;
+}
+ 
+a:hover {
+    /* padding: 10px; */
+    background-color: #cae5ff;
+}
+
+.for-flex {
+    display: flex;
+  }
+a {
+    letter-spacing: 0.7px;
+    font-size: 1em;
+}
+
+.btn {
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(255,255,255,0.2) 49%, rgba(0,0,0,0.15) 51%, rgba(0,0,0,0.05));
+    background-repeat: repeat-x;
+}
+
+.custom-file-label {
+  overflow: hidden;
+}

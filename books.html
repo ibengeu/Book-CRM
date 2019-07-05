@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css.map">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/authors.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <title>CRM dashboard</title>
+</head>
+
+<body>
+    <?php
+    require 'for-include/db-connection.php';
+
+    $viewQuery = "SELECT * from books 
+                     left join imprints 
+                     on books.ImprintID = imprints.ImprintID
+                     left join bindingtypes on
+                     books.BindingTypeID = bindingtypes.BindingTypeID
+                     left join categories on
+                     books.CategoryID = categories.CategoryID
+                     left join subcategories on
+                     books.SubCategoryID = subcategories.SubCategoryID";
+    $imprintQuery = "SELECT * from imprints";
+    $bindingtypeQuery = "SELECT * from bindingtypes"; 
+    $subcategoryQuery = "SELECT * from subcategories";
+                     
+    $categoryQuery = "SELECT * from categories";
+    $execute = $conn->query($viewQuery);
+    $execute2 = $conn->query($imprintQuery);
+    $execute3 = $conn->query($bindingtypeQuery);
+    $execute4 = $conn->query($categoryQuery);
+    $execute5 = $conn->query($subcategoryQuery);
+
+
+
+
+
+
+    if (isset($_POST['submit'])) {
+
+        
+
+        
+
+
+        $stmt = $conn->prepare("INSERT INTO BOOKS (ISBN10, ISBN13, Title,TrimSIze, PageCountEditorialEst, 
+                LatestInStockDate, Description, CoverImage, ImprintID, BindingTypeID, SubCategoryID, CategoryID) 
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,? ,?)");
+
+
+        $stmt->bind_param("sssdisssiiii", $ISBN10, $ISBN13,$Title,$TrimSIze, 
+                          $pagecount, $LatestInStockDate, $description, 
+                          $pictureTemp,$pubCompany,$BindingType,$category, $subcategory);
+        
+                $ISBN10 = $_POST['ISBN10'];
+                $ISBN13 = $_POST['ISBN13'];
+                $Title = $_POST['title'];
+                $TrimSIze = $_POST['trimsize'];
+                $pagecount = $_POST['pagecount'];
+                $LatestInStockDate = $_POST['LatestInStockDate'];
+                $description = $_POST['description'];
+                $pubCompany = $_POST['pubCompany'];
+                $BindingType = $_POST['BindingType'];
+                $category = $_POST['catgeory'];
+                $subcategory = $_POST['subcategory'];
+                $pictureName = $_FILES['image']['name'];
+                $pictureTemp = $_FILES['image']['tmp_name'];
+
+        
+                if(isset($pictureName)){
+                    move_uploaded_file($pictureTemp, "Img/" . $pictureName);
+                }
+
+                $stmt -> execute();
+
+                if (!mysqli_query($conn, $stmt)) {
+                    echo "Error: " . mysqli_error($conn);
+                }
+    }
+
+
+
+
+
+
+
+    ?>
+    <div class="container-fluid" id="container-things">
+        <div class="row">
+            <div class="col-md-2" id="left-side">
+                <div class="logo-area">
+                    <h1>Book-CRM</h1>
+                </div>
+                <ul class="nav flex-column nav-pills" id="d-margins">
+                    <li class="nav-item "><a class="nav-link " href="dashboard.html"><i
+                                class="fas fa-tachometer-alt"></i>DashBoard</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="authors.html"><i
+                                class="fas fa-user-tie"></i>Authors</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="books.html"><i
+                                class="fas fa-align-justify"></i>Books</a></li>
+                    <li class="nav-item"><a class="nav-link " href="categories.html"><i
+                                class="fas fa-folder-open"></i>Categories</a></li>
+                    <li class="nav-item"><a class="nav-link " href="employees.html"><i
+                                class="fas fa-users"></i>Employees</a></li>
+                    <li class="nav-item"><a class="nav-link " href="todo.html "><i class="fas fa-marker"></i>To do</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10  rightside">
+                <div class="row">
+                    <div class="col-md-12 rightheader">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5><i
+                                    class="fas fa-align-justify"></i>Books</h5>
+                            </div>
+                            <div class="col-md-10">
+                                <div id="todo-btn" class="d-flex justify-content-end">
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample"
+                                        role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Add New Book
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row" id="top-ish">
+                    <div class="" id="top-box">
+
+                    </div>
+                    <div class="" id="top-box"></div>
+                    <div class="" id="top-box"></div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="POST" action="books.html" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="ISBN">ISBN10</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the ISBN10" name="ISBN10">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="ISBN13">ISBN13</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the ISBN13" name="ISBN13">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Title">Title</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the title" name="title">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="trimsize">Trim Size</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the trimsize" name="trimsize">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="PAGE COUNT">Page Count</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the Number of pages" name="pagecount">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="LatestInStockDate">Last Stock Date</label>
+                                        <input type="DATE" class="form-control" id="exampleFormControlInput1"
+                                            name="LatestInStockDate">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Description">Description</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                            name="description"></textarea>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                            <label for="CoverImage">Cover Image</label>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                                </div>
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                                        aria-describedby="inputGroupFileAddon01" name="image">
+                                                    <label class="custom-file-label" for="inputGroupFile01">Choose
+                                                        file</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Publishing Company</label>
+
+
+                                        <select class="form-control custom-select" id="publishingcompany"
+                                            name="pubCompany">
+                                            <?php while ($DataRows = mysqli_fetch_array($execute2)) {
+
+                                                $pubName = $DataRows['Imprint'];
+                                                $ImprintID = $DataRows['ImprintID'];
+
+
+
+                                                ?>
+                                            <option value="<?php echo $ImprintID?>"><?php echo "$pubName" ?></option>
+                                            <?php  } ?>
+                                        </select> </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Binding Type</label>
+
+
+                                        <select class="form-control custom-select" id="publishingcompany"
+                                            name="BindingType">
+                                            <?php while ($DataRows = mysqli_fetch_array($execute3)) {
+
+                                                        $BindingType = $DataRows['BindingType'];
+                                                        $bindingID = $DataRows['BindingTypeID'];
+
+    
+
+                                                        ?>
+                                            <option value="<?php echo $bindingID ?>"><?php echo "$BindingType" ?>
+                                            </option>
+                                            <?php  } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Category</label>
+
+
+                                        <select class="form-control custom-select" id="publishingcompany"
+                                            name="catgeory">
+                                            <?php while ($DataRows = mysqli_fetch_array($execute4)) {
+                                                                $categoryId = $DataRows['CategoryID'];
+                                                                $CategoryName = $DataRows['CategoryName'];
+
+
+
+                                                                ?>
+                                            <option value="<?php echo $categoryId?>"><?php echo "$CategoryName" ?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleFormControlSelect2">Sub Category</label>
+
+
+                                        <select class="form-control custom-select" id="publishingcompany"
+                                            name="subcategory">
+                                            <?php while ($DataRows = mysqli_fetch_array($execute5)) {
+
+                                                            $SubCategoryID = $DataRows['SubCategoryID'];
+                                                            $SubCategoryName = $DataRows['SubCategoryName'];
+                                                        ?>
+                                            <option value="<?php echo $SubCategoryID ?>">
+                                                <?php echo "$SubCategoryName" ?></option>
+
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                    <input type="submit" value="Update Table" name="submit" class="btn btn-secondary">
+                                </form>
+
+                            </div>
+                        </div>
+                        <table class="table table-bordered ">
+                            <thead class="thead">
+                                <tr>
+                                    <th scope="col">BookID</th>
+                                    <th scope="col">ISBN10</th>
+                                    <th scope="col">ISBN13</th>
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Trim Size</th>
+                                    <th scope="col">Page count</th>
+                                    <th scope="col">Last stock date</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Publishing Company</th>
+                                    <th scope="col">Binding Type</th>
+                                    <th scope="col">Category</th>
+                                    <th scope="col">Subcategory</th>
+
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php while ($DataRows = mysqli_fetch_array($execute)) {
+                                    $Id = $DataRows['BookID'];
+                                    $ISBN = $DataRows['ISBN10'];
+                                    $ISBN13 = $DataRows['ISBN13'];
+                                    $Title = $DataRows['Title'];
+                                    $trimsize = $DataRows['TrimSIze'];
+                                    $PageCountEditorialEst = $DataRows['PageCountEditorialEst'];
+                                    $CoverImage = $DataRows['CoverImage'];
+                                    $Description = $DataRows['Description'];
+                                    $ImprintID = $DataRows['Imprint'];
+                                    $BindingTypeID = $DataRows['BindingType'];
+                                    $SubCategoryID = $DataRows['SubCategoryName'];
+                                    $CategoryID = $DataRows['CategoryName'];
+                                    $stockdate = $DataRows['LatestInStockDate'];
+
+
+                                    ?>
+                                <tr>
+                                    <th scope="row">To-do--<?php echo "$Id" ?></th>
+                                    <td><?php echo "$ISBN" ?></td>
+                                    <td><?php echo "$ISBN13" ?></td>
+                                    <td><?php echo "$Title" ?></td>
+                                    <td><?php echo "$trimsize" ?></td>
+                                    <td><?php echo "$PageCountEditorialEst" ?></td>
+                                    <td><?php echo "$stockdate" ?></td>
+                                    <td><?php echo "$Description" ?></td>
+
+                                    <td><?php echo "$ImprintID" ?></td>
+                                    <td><?php echo "$BindingTypeID" ?></td>
+                                    <td><?php echo "$CategoryID" ?></td>
+                                    <td><?php echo "$SubCategoryID" ?></td>
+
+                                </tr>
+                                <?php 
+                            } ?>
+
+                            </tbody>
+                        </table>
+                    </div>     
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script type="text/javascript">
+       $("input[type=file]").change(function () {
+  var fieldVal = $(this).val();
+
+  // Change the node's value by removing the fake path (Chrome)
+  fieldVal = fieldVal.replace("C:\\fakepath\\", "");
+    
+  if (fieldVal != undefined || fieldVal != "") {
+    $(this).next(".custom-file-label").attr('data-content', fieldVal);
+    $(this).next(".custom-file-label").text(fieldVal);
+  }
+
+});
+    </script>
+</body>
+
+</html>

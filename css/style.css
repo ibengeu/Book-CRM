@@ -1,0 +1,80 @@
+* {
+    box-sizing: border-box;
+    
+}
+
+body {
+
+    font-family: 'Nunito Sans', sans-serif;
+    height: 100vh;
+    
+
+}
+
+.container-fluid {
+   height: 100vh;
+}
+#container-style {
+   
+}
+#left-side {
+    height: 100vh;
+    font-size: 1em;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: rgb(254, 254, 255);
+    width: 250px;   
+    background: rgb(23, 42, 58,0.8);
+}
+.right-side {
+
+    background:white;
+    width: 100%;
+    overflow-x: scroll;
+
+}
+h1 {
+    font-size: 1.2em
+}
+li,a{
+    list-style-type: none;
+    padding-bottom: 12px;
+}
+a{
+    color: white;
+}
+
+#search-nav {
+    background-color: rgba(218, 222, 224, 0.8);
+    margin-bottom: 20px;
+}
+.col-row {
+    border-right: 3px solid black;
+}
+
+.book-img {
+    height: 200px;
+    width: auto;
+    border-radius: 10px;
+}
+
+.logo-area {
+    margin-bottom: 100px;
+    margin-top: 7   px;
+    border-style: dashed;
+    padding: 10px;
+    text-align: center;
+    
+}
+.book-title{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.logo-area h1 {
+    font-weight: bold;
+}
+
+.books-margin {
+    margin-bottom: 10px;
+}

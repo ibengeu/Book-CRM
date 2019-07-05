@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" href="css/bootstrap-grid.css.map">
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link href="fontawesome-free-5.8.1-web/css/all.css" rel="stylesheet">
+    <!--load all styles -->
+    <title>CRM dashboard</title>
+</head>
+
+<body>
+    <?php
+        require 'for-include/db-connection.php';
+   
+
+    if(isset($_POST['submit']))
+{	 
+	 $first_name = $_POST['firstname'];
+	 $last_name = $_POST['lastname'];
+     $institution = $_POST['institution'];
+    
+     $insertQuery = "INSERT INTO authors (authorid, firstname, lastname, institution) VALUES ('$authorid','$first_name', '$last_name', '$institution')";
+   
+
+
+     if ($conn->query($insertQuery) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $insertQuery . "<br>" . $conn->error;
+    }
+     
+}
+    
+        ?>
+    <div class="container-fluid" id="container-things">
+        <!-- // prepare and bind
+            $stmt = $conn->prepare("INSERT INTO authors (authorid,firstname, lastname, institution') VALUES (?, ?, ?, ?)");
+            $stmt->bind_param("ssss", $authorid, $firstname, $lastname, $institution);
+        
+            // set parameters and execute
+            $authorid = "NULL";
+            $firstname = $_POST['firstname'];
+            $lastname = $_POST['lastname'];
+            $institution = $_POST['institution'];
+            $stmt->execute();     -->
+        <div class="row">
+            <div class="col-md-2" id="left-side">
+                <div class="logo-area">
+                    <h1>Book-CRM</h1>
+                </div>
+                <ul class="nav flex-column nav-pills" id="d-margins">
+                    <li class="nav-item "><a class="nav-link " href="dashboard.html"><i
+                                class="fas fa-tachometer-alt"></i>DashBoard</a></li>
+
+                    <li class="nav-item"><a class="nav-link" href="authors.html"><i
+                                class="fas fa-user-tie"></i>Authors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="books.html"><i
+                                class="fas fa-align-justify"></i>Books</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="categories.html"><i
+                                class="fas fa-folder-open"></i>Categories</a></li>
+                    <li class="nav-item"><a class="nav-link " href="employees.html"><i
+                                class="fas fa-users"></i>Employees</a></li>
+                    <li class="nav-item"><a class="nav-link " href="todo.html "><i class="fas fa-marker"></i>To do</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-10  rightside">
+                <div class="row">
+                    <div class="col-md-12 rightheader">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <h5><i class="fas fa-folder-open"></i>Categories</h5>
+                            </div>
+                            <div class="col-md-10">
+                                <div id="todo-btn" class="d-flex justify-content-end">
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample"
+                                        role="button" aria-expanded="false" aria-controls="collapseExample">
+                                        Add category
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                <form method="POST" method="POST" action="authors.html">
+                                    <div class="form-group">
+                                        <label for="First Name">First Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the First Name?" name="firstname">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="Last Name">Last Name</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What's the Last Name?" name="lastname">
+                                    </div>
+
+
+
+                                    <div class="form-group">
+                                        <label for="Last Name">Institution</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="What Institution are you affilated with?" name="institution">
+                                    </div>
+
+
+                                    <input type="submit" name="submit" value="Update Table" class="btn btn-secondary">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title card-header">Categories</h5>
+                        <p class="card-text">
+                            <ul class="list-group list-group-flush">
+                                <?php
+                    
+                                        $viewQuery = "SELECT * FROM categories";
+                                        $execute = $conn->query($viewQuery);
+
+                                        if ($execute === FALSE)
+                                        {
+                                            echo $conn->error;
+                                            exit;
+                                        }
+
+                                        
+                                        while ($DataRows = $execute->fetch_assoc()) {
+                    
+                                               
+                                                $CategoryName = $DataRows['CategoryName'];
+                                                $CategoryID = $DataRows['CategoryID'];
+                                           
+                                                
+                                                ?>
+                                <?php echo $DataRows['CategoryName']; ?>
+                                <div class="buttonDiv"><?php echo'<a href="subcat.html?CategoryID='.$CategoryID.'">'?><button
+                                    class="btn float-right btn-primary">
+                                    View </button></a></div>
+                                
+                                <?php }?>
+
+
+                            </ul>
+                        </p>
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="js/jquery-3.3.1.js"></script>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+
+</body>
+
+</html>
