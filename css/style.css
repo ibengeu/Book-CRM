@@ -1,80 +1,135 @@
 * {
-    box-sizing: border-box;
-    
+  box-sizing: border-box;
 }
 
 body {
-
-    font-family: 'Nunito Sans', sans-serif;
-    height: 100vh;
-    
-
+  font-family: "Nunito Sans", sans-serif;
+  height: 100vh;
 }
 
 .container-fluid {
-   height: 100vh;
+  height: 100vh;
 }
-#container-style {
-   
-}
+
 #left-side {
-    height: 100vh;
-    font-size: 1em;
-    padding-left: 30px;
-    padding-right: 30px;
-    color: rgb(254, 254, 255);
-    width: 250px;   
-    background: rgb(23, 42, 58,0.8);
+  height: 100vh;
+  font-size: 1em;
+  padding-left: 30px;
+  padding-right: 30px;
+  color: rgb(254, 254, 255);
+  width: 250px;
+  background: rgb(23, 42, 58, 0.8);
 }
 .right-side {
-
-    background:white;
-    width: 100%;
-    overflow-x: scroll;
-
+  background: white;
+  width: 100%;
+  overflow-x: scroll;
 }
 h1 {
-    font-size: 1.2em
+  font-size: 1.2em;
 }
-li,a{
-    list-style-type: none;
-    padding-bottom: 12px;
+li,
+a {
+  list-style-type: none;
+  padding-bottom: 12px;
 }
-a{
-    color: white;
+a {
+  color: white;
 }
 
 #search-nav {
-    background-color: rgba(218, 222, 224, 0.8);
-    margin-bottom: 20px;
+  background-color: rgba(218, 222, 224, 0.8);
+  margin-bottom: 20px;
 }
 .col-row {
-    border-right: 3px solid black;
+  border-right: 3px solid black;
 }
 
 .book-img {
-    height: 200px;
-    width: auto;
-    border-radius: 10px;
+  height: 200px;
+  width: auto;
+  border-radius: 10px;
 }
 
 .logo-area {
-    margin-bottom: 100px;
-    margin-top: 7   px;
-    border-style: dashed;
-    padding: 10px;
-    text-align: center;
-    
+  margin-bottom: 100px;
+  margin-top: 7 px;
+  border-style: dashed;
+  padding: 10px;
+  text-align: center;
 }
-.book-title{
-    text-align: center;
-    margin-top: 10px;
+.book-title {
+  text-align: center;
+  margin-top: 10px;
 }
 
 .logo-area h1 {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .books-margin {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.LoginContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+}
+
+h3 {
+  margin-bottom: 2rem;
+  text-align: center;
+
+}
+
+.emptyRegion {
+  background-color: rgb(70, 29, 29);
+  height: 100%;
+  width: 60%;
+  padding: 0;
+  margin: 0;
+  background: url("../img/stock-photo-bookshelves-in-the-library-with-old-books-d-render-d-illustration-1529567276.jpg");
+}
+
+.LoginRegion {
+  display: flex;
+  height: 100%;
+  width: 40%;
+  justify-content: center;
+  align-items: center;
+  color:rgba(0, 0, 0, 0.87);
+  font-family: "Nunito sans", sans-serif;
+  overflow:hidden;
+}
+
+label {
+    font-weight: 700;
+}
+input[type="text"],input[type="password"],input[type="submit"]{
+    margin-bottom:1rem;
+    height: 3rem;
+    border:1px solid rgb(86, 127, 204);
+    padding: .7rem;
+    width: 20rem;
+    font-family: "Nunito sans", sans-serif;
+
+}
+
+input[type="submit"]{
+    background: #d68888;
+    border:0;
+    height: 3rem;
+
+    color: #fff;
+    box-shadow:0px 0px 10px;
+}
+
+input[type="submit"]:hover{
+
+    box-shadow:#b47373;
+
 }
